@@ -17,8 +17,13 @@ RUN rm -rf /go/src/github.com
 
 WORKDIR /opt/syncthing
 
-CMD ["-home=config", "-gui-address=0.0.0.0:8080"]
+ADD entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+VOLUME ["/opt/syncthing/config.d"]
+
+ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 8080 22000 21025/udp
 
-ENTRYPOINT ["./syncthing"]
+CMD ["/opt/syncthing/syncthing", "-home=/opt/syncthing/config.d"]
