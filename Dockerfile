@@ -10,7 +10,7 @@ RUN git clone https://github.com/syncthing/syncthing
 WORKDIR /go/src/github.com/syncthing/syncthing/
 RUN git checkout "$PULSE_VERSION"
 
-RUN go run build.go
+RUN go run build.go -no-upgrade
 
 RUN mkdir /opt/syncthing && cp bin/syncthing /opt/syncthing/syncthing
 RUN rm -rf /go/src/github.com
