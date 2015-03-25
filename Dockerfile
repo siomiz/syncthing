@@ -3,7 +3,7 @@ FROM golang:1.3
 RUN mkdir -p src/github.com/syncthing
 WORKDIR /go/src/github.com/syncthing
 
-ENV PULSE_VERSION v0.10.27
+ENV PULSE_VERSION v0.10.29
 
 RUN git clone https://github.com/syncthing/syncthing
 
