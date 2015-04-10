@@ -1,24 +1,22 @@
 FROM golang:1.3
 
-RUN mkdir -p src/github.com/syncthing
-WORKDIR /go/src/github.com/syncthing
+MAINTAINER Tomohisa Kusano <siomiz@gmail.com>
 
 ENV PULSE_VERSION v0.10.30
 
-RUN git clone https://github.com/syncthing/syncthing
-
 WORKDIR /go/src/github.com/syncthing/syncthing/
-RUN git checkout "$PULSE_VERSION"
 
-RUN go run build.go -no-upgrade
+COPY entrypoint.sh /entrypoint.sh
 
-RUN mkdir /opt/syncthing && cp bin/syncthing /opt/syncthing/syncthing
-RUN rm -rf /go/src/github.com
+RUN git clone https://github.com/syncthing/syncthing /go/src/github.com/syncthing/syncthing/. \
+	&& git checkout "$PULSE_VERSION" \
+	&& go run build.go -no-upgrade \
+	&& mkdir /opt/syncthing \
+	&& cp bin/syncthing /opt/syncthing/syncthing \
+	&& rm -rf /go/src/github.com /go/src/golang.org \
+	&& chmod +x /entrypoint.sh
 
 WORKDIR /opt/syncthing
-
-ADD entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
 
 VOLUME ["/opt/syncthing/config.d"]
 
