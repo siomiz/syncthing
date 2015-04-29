@@ -2,7 +2,7 @@ FROM golang:1.3
 
 MAINTAINER Tomohisa Kusano <siomiz@gmail.com>
 
-ENV PULSE_VERSION v0.11.0
+ENV PULSE_VERSION v0.11.1
 
 WORKDIR /go/src/github.com/syncthing/syncthing/
 
