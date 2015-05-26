@@ -10,7 +10,7 @@ COPY entrypoint.sh /entrypoint.sh
 
 RUN curl -sS https://syncthing.net/security.html | gpg --import - \
 	&& git clone https://github.com/syncthing/syncthing . \
-#	&& git verify-tag "$PULSE_VERSION" \
+	&& git verify-tag "$PULSE_VERSION" \
 	&& git checkout "$PULSE_VERSION" \
 	&& go run build.go -no-upgrade \
 	&& mkdir /opt/syncthing \
