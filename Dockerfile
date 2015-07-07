@@ -24,6 +24,6 @@ VOLUME ["/opt/syncthing/config.d"]
 
 ENTRYPOINT ["/entrypoint.sh"]
 
-EXPOSE 8080 22000 21025/udp
+EXPOSE 8384 22000 21025/udp
 
 CMD ["/opt/syncthing/syncthing", "-home=/opt/syncthing/config.d"]
