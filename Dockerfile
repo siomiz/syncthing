@@ -9,6 +9,7 @@ WORKDIR /go/src/github.com/syncthing/syncthing/
 COPY entrypoint.sh /entrypoint.sh
 
 RUN curl -sS https://syncthing.net/security.html | gpg --import - \
+	&& curl -sS https://nym.se/gpg.txt | gpg --import - \
 	&& git clone https://github.com/syncthing/syncthing . \
 	&& git verify-tag "$PULSE_VERSION" \
 	&& git checkout "$PULSE_VERSION" \
