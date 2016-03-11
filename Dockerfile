@@ -1,4 +1,4 @@
-FROM golang:1.4
+FROM golang:1.6
 
 MAINTAINER Tomohisa Kusano <siomiz@gmail.com>
 
