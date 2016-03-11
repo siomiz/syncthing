@@ -15,7 +15,7 @@ RUN apk add -U gnupg curl git \
 	&& git verify-tag "$PULSE_VERSION" \
 	&& git checkout "$PULSE_VERSION" \
 	&& go run build.go -no-upgrade \
-	&& mkdir /opt/syncthing \
+	&& mkdir -p /opt/syncthing \
 	&& cp bin/syncthing /opt/syncthing/syncthing \
 	&& rm -rf /go/src/github.com /go/src/golang.org /root/.gnupg \
 	&& apk del -r --purge gnupg curl git \
