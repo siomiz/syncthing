@@ -1,4 +1,4 @@
-FROM golang:1.4
+FROM golang:1.6-alpine
 
 MAINTAINER Tomohisa Kusano <siomiz@gmail.com>
 
@@ -8,15 +8,17 @@ WORKDIR /go/src/github.com/syncthing/syncthing/
 
 COPY entrypoint.sh /entrypoint.sh
 
-RUN curl -sS https://syncthing.net/security.html | gpg --import - \
+RUN apk add -U gnupg curl git \
+	&& curl -sS https://syncthing.net/security.html | gpg --import - \
 	&& curl -sS https://nym.se/gpg.txt | gpg --import - \
 	&& git clone https://github.com/syncthing/syncthing . \
 	&& git verify-tag "$PULSE_VERSION" \
 	&& git checkout "$PULSE_VERSION" \
 	&& go run build.go -no-upgrade \
-	&& mkdir /opt/syncthing \
+	&& mkdir -p /opt/syncthing \
 	&& cp bin/syncthing /opt/syncthing/syncthing \
 	&& rm -rf /go/src/github.com /go/src/golang.org /root/.gnupg \
+	&& apk del -r --purge gnupg curl git \
 	&& chmod +x /entrypoint.sh
 
 WORKDIR /opt/syncthing

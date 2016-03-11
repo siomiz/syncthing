@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
 /opt/syncthing/syncthing -generate="/opt/syncthing/config.d"
