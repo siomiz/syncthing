@@ -8,7 +8,7 @@ WORKDIR /go/src/github.com/syncthing/syncthing/
 
 COPY entrypoint.sh /entrypoint.sh
 
-RUN apk add -U gnupg curl git \
+RUN apk add -U gnupg git build-base \
 	&& curl -sS https://syncthing.net/security.html | gpg --import - \
 	&& curl -sS https://nym.se/gpg.txt | gpg --import - \
 	&& git clone https://github.com/syncthing/syncthing . \
@@ -18,7 +18,7 @@ RUN apk add -U gnupg curl git \
 	&& mkdir -p /opt/syncthing \
 	&& cp bin/syncthing /opt/syncthing/syncthing \
 	&& rm -rf /go/src/github.com /go/src/golang.org /root/.gnupg \
-	&& apk del -r --purge gnupg curl git \
+	&& apk del -r --purge gnupg git build-base \
 	&& chmod +x /entrypoint.sh
 
 WORKDIR /opt/syncthing
