@@ -9,8 +9,7 @@ WORKDIR /go/src/github.com/syncthing/syncthing/
 COPY entrypoint.sh /entrypoint.sh
 
 RUN apk add -U gnupg git curl build-base \
-	&& curl -sS https://syncthing.net/security.html | gpg --import - \
-	&& curl -sS https://nym.se/gpg.txt | gpg --import - \
+	&& gpg --keyserver pool.sks-keyservers.net --recv-key 49F5AEC0BCE524C7 D26E6ED000654A3E \
 	&& git clone https://github.com/syncthing/syncthing . \
 	&& git verify-tag "$PULSE_VERSION" \
 	&& git checkout "$PULSE_VERSION" \
