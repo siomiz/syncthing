@@ -1,6 +1,6 @@
-FROM golang:1.7-alpine
+FROM golang:1.9-alpine
 
-MAINTAINER Tomohisa Kusano <siomiz@gmail.com>
+LABEL maintainer="Tomohisa Kusano <siomiz@gmail.com>"
 
 ENV PULSE_VERSION v0.14.44
 
@@ -9,7 +9,8 @@ WORKDIR /go/src/github.com/syncthing/syncthing/
 COPY entrypoint.sh /entrypoint.sh
 
 RUN apk add -U gnupg git curl build-base \
-	&& gpg --keyserver ha.pool.sks-keyservers.net --recv-key 49F5AEC0BCE524C7 D26E6ED000654A3E \
+	&& wget -qO- "http://ha.pool.sks-keyservers.net/pks/lookup?op=get&search=0x49F5AEC0BCE524C7" | gpg --import \
+	&& wget -qO- "http://ha.pool.sks-keyservers.net/pks/lookup?op=get&search=0xD26E6ED000654A3E" | gpg --import \
 	&& git clone https://github.com/syncthing/syncthing . \
 	&& git verify-tag "$PULSE_VERSION" \
 	&& git checkout "$PULSE_VERSION" \
