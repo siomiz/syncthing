@@ -9,8 +9,7 @@ WORKDIR /go/src/github.com/syncthing/syncthing/
 COPY entrypoint.sh /entrypoint.sh
 
 RUN apk add -U gnupg git curl build-base \
-	&& wget -qO- "http://keyserver.leg.uct.ac.za/pks/lookup?op=get&search=0x49F5AEC0BCE524C7" | gpg --import \
-	&& wget -qO- "http://keyserver.leg.uct.ac.za/pks/lookup?op=get&search=0xD26E6ED000654A3E" | gpg --import \
+        && gpg --keyserver keyserver.leg.uct.ac.za --recv-key 49F5AEC0BCE524C7 D26E6ED000654A3E \
 	&& git clone https://github.com/syncthing/syncthing . \
 	&& git verify-tag "$PULSE_VERSION" \
 	&& git checkout "$PULSE_VERSION" \
