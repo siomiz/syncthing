@@ -2,7 +2,7 @@ FROM golang:1.9-alpine
 
 LABEL maintainer="Tomohisa Kusano <siomiz@gmail.com>"
 
-ENV PULSE_VERSION v0.14.45
+ENV PULSE_VERSION v0.14.46
 
 WORKDIR /go/src/github.com/syncthing/syncthing/
 
